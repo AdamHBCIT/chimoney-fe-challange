@@ -16,9 +16,9 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "@components/*": ["./components/*"],
-      "@pages/*": ["./pages/*"],
-      "@store": ["./lib/store.ts"],
+      "@components/*": ["./src/components/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@lib/*": ["./src/lib/*"],
     }
   },
   "include": ["src"],
