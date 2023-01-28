@@ -10,10 +10,18 @@ body {
   height: 100%;
   width: 100%;
   font-family: "Karla", Arial, sans-serif;;
-  font-size: 102%;
+  font-size: 100%;
   line-height: 1.65;
   margin: 0;
   padding: 0;
+  background-color: theme('colors.zinc.200');
+}
+
+main {
+  background-color: theme('colors.white');
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  border-radius: 0.375rem;
 }
 
 h1, h2, h3, h4, h5 { 
@@ -40,10 +48,6 @@ h4 {
   font-size: theme('fontSize.h4');
 }
 
-h5 {
-  font-size: theme('fontSize.h5');
-}
-
 img {
   max-width: 100%;
   height: auto;
@@ -59,20 +63,4 @@ p {
 
 blockquote, ol, p, table, ul {
   font-size: theme('fontSize.body');
-}
-
-a {
-  @apply hover:font-bold hover:border-b border-zinc-600;
-}
-
-.active {
-  @apply font-bold;
-}
-
-.button {
-  @apply inline-block px-5 py-1.5 my-4 border border-zinc-500 transition hover:bg-zinc-800 hover:text-white;
-}
-
-input, textarea {
-  @apply border border-zinc-400 py-1 px-3;
 }

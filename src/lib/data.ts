@@ -1,14 +1,17 @@
-export const products = [
+export const simpleProducts = [
   {
-      "product_id": 1,
-      "product_name": "Apple MacBook"
+      "productId": 1,
+      "productName": "Apple MacBook",
+      "quantity": 1
   },
   {
-      "product_id": 2,
-      "product_name": "Tadaaa Fasaa comment 2"
+      "productId": 2,
+      "productName": "Dell Inspiron",
+      "quantity": 1
   },
   {
-      "product_id": 3,
-      "product_name": "JAHHAA comment 3"
+      "productId": 3,
+      "productName": "Lenovo ThinkPad T500",
+      "quantity": 1
   },
 ]

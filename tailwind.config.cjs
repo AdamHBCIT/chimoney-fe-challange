@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: "1rem",
+      padding: "2rem",
     },
     // Edit screen sizes
     screens: {
@@ -15,15 +15,11 @@ module.exports = {
     },
     extend: {
       fontSize: {
-        'body': '1.05em',
-        'h1': '3.052em',
-        'h2': '2.441em',
-        'h3': '1.953em',
-        'h4': '1.563em',
-        'h5': '1.25em',
-        'button': '1.155em',
-        'small': '0.85rem',
-        'small2x': '0.75rem',
+        h1: "3rem",
+        h2: "2.6rem",
+        h3: "2rem",
+        h4: "1.44rem",
+        body: "1.15rem",
       },
     },
   },

@@ -5,8 +5,9 @@ import Header from "@components/layout/Header";
 const Layout = () => {
   return (
     <>
-      <Header />
-      <Outlet />
+      <main className="container mt-10 border border-zinc-300">
+        <Outlet />
+      </main>
       <Footer />
     </>
   );

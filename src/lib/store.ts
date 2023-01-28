@@ -1,23 +1,29 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { products } from "./data";
+import { simpleProducts } from "./data";
+
+export type CartProduct = {
+  productId: number,
+  productName: string,
+  productImageURL: string,
+  productQuantity: number
+}
 
 interface AppStore {
-  cart: [] | {},
-  addProduct: () => void,
-  removeProduct: () => void,
+  cart: CartProduct[],
+  addProduct: (product: CartProduct) => void,
+  removeProduct: (productId: number) => void,
+  updateProductQuantity: (productId: number) => void,
 }
+
 
 const useStore = create<AppStore>()(
   persist(
     (set) => ({
-      cart: products,
-      addProduct: () => set({
-        //do something
-      }),
-      removeProduct: () => set({
-        // do something
-      })
+      cart: [],
+      addProduct: (product: CartProduct) => set( (state) => ({cart: [...state.cart, product]}) ),
+      removeProduct: (productId: number) => set( (state) => ({cart: state.cart.filter((product) => product.productId !== productId)}) ),
+      updateProductQuantity: (productId: number) => set( (state) => ({}) )
     }),
     {
       name: "chimoney_store",
