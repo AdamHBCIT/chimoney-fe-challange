@@ -1,22 +1,33 @@
-import { NavLink } from "react-router-dom";
+import CartButton from "@components/button/CartButton";
+import ProceedButton from "@components/button/ProceedButton";
+import { HiArrowSmLeft } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
-const Header = () => {
+type Props = {
+  title: string,
+  backArrow?: boolean,
+  cartPage?: boolean
+}
+
+const Header = ({title, backArrow, cartPage}: Props) => {
   return (
-    <header className="w-full min-h-[4rem] h-16 flex items-center shadow">
-      <nav className="container flex justify-between">
-        <ul>
-          <li>
-            <NavLink to="/" className="border-0 font-bold">
-              🥕 Chimoney Challange
-            </NavLink>
-          </li>
-          <li className="mr-5">
-            <NavLink to="/create">Create Meal</NavLink>
-          </li>
-        </ul>
-      </nav>
+    <header className="border-b border-zinc-300 flex flex-col gap-y-6 lg:flex-row lg:justify-between items-start lg:items-center pb-4">
+      <div className="flex flex-col items-center gap-y-2 lg:flex-row">
+        {backArrow && 
+          <Link to="/" className="mr-4 flex items-center self-baseline lg:self-auto">
+            <HiArrowSmLeft size="2rem" /> 
+            <span className="lg:hidden">Back to products</span>
+          </Link>
+        }
+        <h1 className="m-0">{title}</h1>
+      </div>
+      {!cartPage && 
+        <CartButton />
+      }
+      {cartPage && 
+        <ProceedButton />
+      }
     </header>
   );
 };
-
 export default Header;

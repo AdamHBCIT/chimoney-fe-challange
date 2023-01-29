@@ -6,6 +6,9 @@ module.exports = {
       center: true,
       padding: "2rem",
     },
+    fontFamily: {
+      sans: ["Poppins", "Arial", "sans-serif"],
+    },
     // Edit screen sizes
     screens: {
       sm: "576px",
@@ -19,7 +22,7 @@ module.exports = {
         h2: "2.6rem",
         h3: "2rem",
         h4: "1.44rem",
-        body: "1.15rem",
+        body: "1.05rem",
       },
     },
   },

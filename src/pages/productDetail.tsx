@@ -1,16 +1,23 @@
 import type { CartProduct } from "@lib/store";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useNavigate, useParams, Link, useLocation, } from "react-router-dom";
 import useStore from "@lib/store";
+import Header from "@components/layout/Header";
+import Loader from "@components/util/Loader";
 
 const ProductDetailPage = () => {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const addProduct = useStore( (state) => state.addProduct );
   const [product, setProduct] = useState<any>({});
 
+  
   // Get params from URL
   const urlParams = useParams();
+  console.log("urlParams: ", urlParams)
   const productId = Number(urlParams.productId);
+  
+  let location = useLocation();
+  console.log("location: ", location)
 
   /**
    * GET data from API 
@@ -43,7 +50,7 @@ const ProductDetailPage = () => {
     }
 
     addProduct(newProduct);
-    navigate("/cart");
+    //navigate("/cart");
   }
 
   useEffect(() => {
@@ -52,13 +59,13 @@ const ProductDetailPage = () => {
 
   return (
     <>
-      <h1>Product Detail Page</h1>
+      <Header title={`Product: ${product.productName}`} backArrow={true} />
       {product.error === true && <p>Bad request</p>}
 
-      {Object.keys(product).length === 0 && <p>Loading</p>}
+      {Object.keys(product).length === 0 && <Loader />}
 
       {Object.keys(product).length > 1 &&
-        <div>
+        <section>
           <p>{product.productName}</p>
           <img src={product.img} alt="" />
           <label htmlFor="quantitySelectId">Quantity</label>
@@ -67,7 +74,8 @@ const ProductDetailPage = () => {
             <option>2</option>
           </select>
           <button type="button" onClick={addProductToCart}>Add to cart</button>
-        </div>
+          <Link to="?modal" state={{modal: true}}>Open modal</Link>
+        </section>
       }
     </>
   );

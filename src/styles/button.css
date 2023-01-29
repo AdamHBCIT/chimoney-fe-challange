@@ -1,0 +1,32 @@
+.btn {
+  @apply  w-full 
+          lg:w-auto 
+          relative
+          flex 
+          items-center 
+          justify-center 
+          lg:justify-start 
+          cursor-pointer 
+          px-8
+          py-2 
+          bg-yellow-300 
+          font-bold 
+          rounded-2xl;
+}
+
+.btn-cart {
+  @apply  before:absolute
+          before:block
+          before:w-6
+          before:h-6
+          before:-top-2
+          before:-right-2
+          before:rounded-full
+          before:bg-red-500
+          before:text-sm
+          before:text-white
+          before:font-bold
+          before:flex
+          before:justify-center
+          before:items-center;
+}

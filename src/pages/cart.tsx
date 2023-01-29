@@ -1,5 +1,7 @@
 import useStore from "@lib/store";
 import { useEffect } from "react";
+import Header from "@components/layout/Header";
+import { Link, useLocation } from "react-router-dom";
 
 const CartPage = () => {
   const cart = useStore( (state) => state.cart );
@@ -25,7 +27,7 @@ const CartPage = () => {
 
   return(
     <>
-      <h1>Cart page</h1>
+      <Header title="Cart" backArrow={true} cartPage={true} />
       {cart.length > 0 && 
         <form>
           {
@@ -40,7 +42,6 @@ const CartPage = () => {
               </div>
             )) 
           }
-          <button type="submit">Proceed to checkout</button>
         </form>
       }
 
