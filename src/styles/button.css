@@ -14,6 +14,18 @@
           rounded-2xl;
 }
 
+.btn-close {
+ @apply cursor-pointer 
+        inline-block
+        px-8
+        py-2
+        font-bold
+        border
+        border-zinc-300
+        rounded-2xl;
+}
+
+/*
 .btn-cart {
   @apply  before:absolute
           before:block
@@ -29,4 +41,22 @@
           before:flex
           before:justify-center
           before:items-center;
+}
+*/
+
+.btn-cart {
+  @apply  absolute
+          block
+          w-6
+          h-6
+          -top-2
+          -right-2
+          rounded-full
+          bg-red-500
+          text-sm
+          text-white
+          font-bold
+          flex
+          justify-center
+          items-center;
 }

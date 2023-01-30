@@ -1,30 +1,39 @@
 import type { CartProduct } from "@lib/store";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams, Link, useLocation, } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import useStore from "@lib/store";
 import Header from "@components/layout/Header";
 import Loader from "@components/util/Loader";
+import SelectQuantity from "@components/form/SelectQuantity";
+import AddToCartButton from "@components/button/AddToCartButton";
+import Modal from "@components/util/Modal";
+import { BsFillCheckCircleFill } from "react-icons/bs";
 
 const ProductDetailPage = () => {
-  //const navigate = useNavigate();
+  // store
   const addProduct = useStore( (state) => state.addProduct );
-  const [product, setProduct] = useState<any>({});
+  const cart = useStore( (state) => state.cart );
+  const updateProductQuantity = useStore( (state) => state.updateProductQuantity );
 
-  
-  // Get params from URL
+  // states
+  const [product, setProduct] = useState<any>({});
+  const [quantity, setQuantity] = useState<number>(1);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showUpdatedModal, setShowUpdatedModal] = useState<boolean>(false);
+
+  // Get productId from URL params
   const urlParams = useParams();
-  console.log("urlParams: ", urlParams)
   const productId = Number(urlParams.productId);
   
-  let location = useLocation();
-  console.log("location: ", location)
-
   /**
    * GET data from API 
-   * @param productId 
    */
   const getProductById = async (productId: number): Promise<void> => {
     const response = await fetch("https://api.chimoney.io/v0.2/info/assets");
+    if(response.status === 404) {
+      setProduct({"error": true})
+      return;
+    }
     const data = await response.json();
     
     // find the product by product id. If it does not exist, become undefined
@@ -41,16 +50,28 @@ const ProductDetailPage = () => {
     }
   };
 
+  /**
+   * Add new product to the cart 
+   */
   const addProductToCart = () => {
     const newProduct: CartProduct = {
       productId: product.productId,
       productName: product.productName,
       productImageURL: product.img,
-      productQuantity: 4
+      productQuantity: quantity
     }
-
+    
+    if (cart.length > 0) {
+      const existProduct = cart.find( (product: any) => product.productId === productId)
+      // if product is already in cart, update quantity
+      if (existProduct) {
+        updateProductQuantity(productId, quantity);
+        setShowUpdatedModal(true);
+        return;
+      }
+    }
     addProduct(newProduct);
-    //navigate("/cart");
+    setShowModal(true);
   }
 
   useEffect(() => {
@@ -60,25 +81,57 @@ const ProductDetailPage = () => {
   return (
     <>
       <Header title={`Product: ${product.productName}`} backArrow={true} />
+
       {product.error === true && <p>Bad request</p>}
 
       {Object.keys(product).length === 0 && <Loader />}
 
       {Object.keys(product).length > 1 &&
-        <section>
-          <p>{product.productName}</p>
-          <img src={product.img} alt="" />
-          <label htmlFor="quantitySelectId">Quantity</label>
-          <select id="quantitySelectId">
-            <option>1</option>
-            <option>2</option>
-          </select>
-          <button type="button" onClick={addProductToCart}>Add to cart</button>
-          <Link to="?modal" state={{modal: true}}>Open modal</Link>
+        <section className="py-10 grid grid-cols-1 lg:grid-cols-2 gap-x-4">
+          <div className="col-span-1">
+            <img
+              className="rounded-md w-full" 
+              src={product.img} 
+              alt={product.productName} />
+          </div>
+
+          <div className="col-span-1">
+            <p className="text-3xl">{product.productName}</p>
+
+            <SelectQuantity changeQuantity={setQuantity} />
+            <AddToCartButton clickToCart={addProductToCart} />
+
+          </div>
         </section>
+      }
+
+      {showModal && 
+        <Modal clickClose={setShowModal}>
+          <div className="flex flex-row items-center py-4 mb-6">
+            <BsFillCheckCircleFill color="#16a34a" className="mr-2"/>
+            <p className="m-0 text-xl font-bold">Item added to the cart</p>
+          </div>
+          <div className="flex flex-row gap-x-6">
+            <Link to="/cart" className="btn">Go to Cart</Link>
+            <Link to="/checkout" className="btn">Proceed to checkout</Link>
+          </div>
+        </Modal>
+      }
+
+      {showUpdatedModal && 
+        <Modal clickClose={setShowUpdatedModal}>
+          <div className="flex flex-row items-center py-4 mb-6">
+            <BsFillCheckCircleFill color="#16a34a" className="mr-2"/>
+            <p className="m-0 text-xl font-bold">Item's quantity updated</p>
+          </div>
+          <div className="flex flex-row gap-x-6">
+            <Link to="/cart" className="btn">Go to Cart</Link>
+            <Link to="/checkout" className="btn">Proceed to checkout</Link>
+          </div>
+        </Modal>
+      
       }
     </>
   );
 };
-
 export default ProductDetailPage;

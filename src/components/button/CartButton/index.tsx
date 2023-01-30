@@ -8,8 +8,11 @@ const CartButton = () => {
   return(
     <Link 
       to="/cart"
-      className={`btn ${ (cart.length > 0) ? `btn-cart before:content-['${cart.length}']` : ``} `}
+      className="btn"
     >
+        {cart.length > 0 && 
+          <span className="btn-cart">{cart.length}</span>
+        }
         Cart 
         <HiShoppingCart className="ml-2"/>
     </Link>
