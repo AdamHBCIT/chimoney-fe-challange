@@ -1,7 +1,13 @@
+import Header from "@components/layout/Header";
+import useStore from "@lib/store";
+
 const CheckoutPage = () => {
+  const cart = useStore( (state) => state.cart );
+
   return(
     <>
-      <h1>Products page</h1>
+      <Header title="Checkout" checkoutPage={true} backArrow={true} />
+      
     </>
   )
 }

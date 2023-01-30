@@ -54,6 +54,7 @@ img {
 
 a {
   cursor: pointer;
+  text-decoration: underline;
 }
 
 p {

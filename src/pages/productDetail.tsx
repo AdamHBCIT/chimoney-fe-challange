@@ -111,7 +111,7 @@ const ProductDetailPage = () => {
             <BsFillCheckCircleFill color="#16a34a" className="mr-2"/>
             <p className="m-0 text-xl font-bold">Item added to the cart</p>
           </div>
-          <div className="flex flex-row gap-x-6">
+          <div className="flex flex-col lg:flex-row gap-y-6 lg:gap-y-0 lg:gap-x-6">
             <Link to="/cart" className="btn">Go to Cart</Link>
             <Link to="/checkout" className="btn">Proceed to checkout</Link>
           </div>
@@ -124,7 +124,7 @@ const ProductDetailPage = () => {
             <BsFillCheckCircleFill color="#16a34a" className="mr-2"/>
             <p className="m-0 text-xl font-bold">Item's quantity updated</p>
           </div>
-          <div className="flex flex-row gap-x-6">
+          <div className="flex flex-col lg:flex-row gap-y-6 lg:gap-y-0 lg:gap-x-6">
             <Link to="/cart" className="btn">Go to Cart</Link>
             <Link to="/checkout" className="btn">Proceed to checkout</Link>
           </div>

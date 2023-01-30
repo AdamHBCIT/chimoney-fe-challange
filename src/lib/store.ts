@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { simpleProducts } from "./data";
 
 export type CartProduct = {
   productId: number,
@@ -27,7 +26,7 @@ const useStore = create<AppStore>()(
         const currentCart = get().cart;
         const index = currentCart.findIndex( (item: CartProduct) => item.productId === productId)
         currentCart[index].productQuantity = quantity;
-        set( (state) => ({cart: currentCart}) )
+        set( () => ({cart: currentCart}) )
       }
     }),
     {
@@ -36,5 +35,4 @@ const useStore = create<AppStore>()(
     }
   )
 );
-
 export default useStore;

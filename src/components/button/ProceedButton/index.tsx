@@ -5,9 +5,18 @@ const ProceedButton = () => {
   const cart = useStore( (state) => state.cart );
 
   return(
-    <Link to="/checkout" className="btn">
-      Ready to checkout {`(${cart.length} items)`}
-    </Link>
+    <>
+      {cart.length === 0 &&
+        <Link to={`/`} className="btn">
+          Visit products
+        </Link>
+      }
+      {cart.length > 0 && 
+        <Link to={`/checkout`} className="btn">
+          Ready to checkout {`(${cart.length} items)`}
+        </Link>
+      }
+    </>
   )
 }
 export default ProceedButton;

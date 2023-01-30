@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Header from "@components/layout/Header";
 import Loader from "@components/util/Loader";
+import { useParams, Link } from "react-router-dom";
 
 const ProductsPage = () => {
   const [products, setProducts] = useState<any[]>([]);
@@ -13,8 +14,6 @@ const ProductsPage = () => {
     }
     const data = await response.json();
 
-    console.log({data})
-    
     // select only gift cards and only 20 items
     const allProducts = data.data.giftCardsRLD.content.slice(1, 20);
 
@@ -46,14 +45,19 @@ const ProductsPage = () => {
       {products.length > 1 &&
         products.map( (product) => (
           <div className="border-b border-zinc-300 py-8 grid gap-x-4 grid-cols-4 grid-rows-2 place-content-stretch" key={product.productId} >
-            <a href={`/product/${product.productId}`} 
-               className="row-span-2 col-span-2 md:col-span-1 self-center">
+            
+            <Link to={`/product/${product.productId}`} 
+                  className="row-span-2 col-span-2 md:col-span-1 self-center"
+            >
               <img src={product.img} alt={product.productName} className="object-cover w-full rounded-md"/>
-            </a>
-            <a href={`/product/${product.productId}`}
-               className="row-span-1 col-span-2 md:col-span-3">
+            </Link>
+            
+            <Link to={`/product/${product.productId}`}
+                  className="row-span-1 col-span-2 md:col-span-3"
+            >
               <p className="text-xl">{product.productName}</p>
-            </a>
+            </Link>
+
             <div className="row-span-1 col-span-4 md:col-span-3">
               <button>Delete</button>
             </div>
