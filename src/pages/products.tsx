@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import Header from "@components/layout/Header";
 import Loader from "@components/util/Loader";
 import { useParams, Link } from "react-router-dom";
@@ -6,10 +6,13 @@ import { useParams, Link } from "react-router-dom";
 const ProductsPage = () => {
   const [products, setProducts] = useState<any[]>([]);
 
+  /**
+   * Get products from API
+   */
   const getProducts = async (): Promise<void> => {
     const response = await fetch("https://api.chimoney.io/v0.2/info/assets");
-    if(response.status === 404) {
-      setProducts([null])
+    if (response.status === 404) {
+      setProducts([null]);
       return;
     }
     const data = await response.json();
@@ -18,54 +21,60 @@ const ProductsPage = () => {
     const allProducts = data.data.giftCardsRLD.content.slice(1, 20);
 
     // if the request is bad, set products to null
-    if(allProducts === undefined) {
-      setProducts([null])
+    if (allProducts === undefined) {
+      setProducts([null]);
       return;
-    }
-    else {
+    } else {
       setProducts(allProducts);
       return;
     }
-    
-  }
+  };
 
-  useEffect( () => {
+  useEffect(() => {
     getProducts();
-  }, [])
+  }, []);
 
-
-  return(
+  return (
     <>
-      <Header title="Products"/>
+      <Header title="Products" />
 
       {products[0] === null && <p>Bad request</p>}
 
       {products.length === 0 && <Loader />}
 
-      {products.length > 1 &&
-        products.map( (product) => (
-          <div className="border-b border-zinc-300 py-8 grid gap-x-4 grid-cols-4 grid-rows-2 place-content-stretch" key={product.productId} >
-            
-            <Link to={`/product/${product.productId}`} 
-                  className="row-span-2 col-span-2 md:col-span-1 self-center"
+      {products.length > 1 && (
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr gap-8 py-8">
+          {products.map((product) => (
+            <div
+              className="flex flex-col justify-between"
+              key={product.productId}
             >
-              <img src={product.img} alt={product.productName} className="object-cover w-full rounded-md"/>
-            </Link>
-            
-            <Link to={`/product/${product.productId}`}
-                  className="row-span-1 col-span-2 md:col-span-3"
-            >
-              <p className="text-xl">{product.productName}</p>
-            </Link>
+              <div>
+                <Link to={`/product/${product.productId}`} >
+                  <img
+                    src={product.img}
+                    alt={product.productName}
+                    className="object-cover w-full rounded-md h-full md:h-52"
+                  />
+                </Link>
 
-            <div className="row-span-1 col-span-4 md:col-span-3">
-              <button>Delete</button>
+                <Link
+                  to={`/product/${product.productId}`}
+                  className=""
+                >
+                  <p className="text-xl">{product.productName}</p>
+                </Link>
+              </div>
+
+              <Link to={`/product/${product.productId}`} className="btn lg:justify-center">
+                View
+              </Link>
             </div>
-          </div>
-        ))
-      }
+          ))}
+        </section>
+      )}
     </>
-  )
-}
+  );
+};
 
 export default ProductsPage;

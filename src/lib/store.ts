@@ -10,6 +10,7 @@ export type CartProduct = {
 
 interface AppStore {
   cart: CartProduct[],
+  clearCart: () => void,
   addProduct: (product: CartProduct) => void,
   removeProduct: (productId: number) => void,
   updateProductQuantity: (productId: number, quantity: number) => void,
@@ -20,6 +21,7 @@ const useStore = create<AppStore>()(
   persist(
     (set, get) => ({
       cart: [],
+      clearCart: () => set( () => ({cart: []})),
       addProduct: (product: CartProduct) => set( (state) => ({cart: [...state.cart, product]}) ),
       removeProduct: (productId: number) => set( (state) => ({cart: state.cart.filter((product) => product.productId !== productId)}) ),
       updateProductQuantity: (productId: number, quantity: number) => {

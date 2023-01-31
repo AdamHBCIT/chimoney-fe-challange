@@ -2,14 +2,16 @@ import useStore from "@lib/store";
 
 type Props = {
   defaultQuantity: number,
-  productId: number
+  productId: number,
+  showModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SelectQuantityCart = ({defaultQuantity, productId}: Props) => {
+const SelectQuantityCart = ({defaultQuantity, productId, showModal}: Props) => {
   const updateProductQuantity = useStore( (state) => state.updateProductQuantity );
 
   const handleUpdateProductQuantity = (quantity: number) => {
-    updateProductQuantity(productId, quantity)
+    updateProductQuantity(productId, quantity);
+    showModal(true);
   }
 
   return(
