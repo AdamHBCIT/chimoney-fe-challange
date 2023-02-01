@@ -1,7 +1,10 @@
 # Frontend Developer Challenge
 
+> Move fast and break things
+> *Mark Zuckerberg*
+
 ## How to run project?
-1. Open the projects and install packages using NPM
+1. Open the projects and install packages using command below (NodeJS is required):
 
 ```bash
 npm install
@@ -24,28 +27,51 @@ npm run dev
 ## Additional features
 1. Added full experience (4 pages) with client-side routing
 2. Products are loaded from API
-  - `https://api.chimoney.io/v0.2/info/assets` API endpoint is used (hope it's good endpoint because secret API key wasn't needed)
+  - `https://api.chimoney.io/v0.2/info/assets` API endpoint is used (hope it's a good endpoint because secret API key wasn't needed)
   - `giftCardsRLD` key in the API is used to display products
-  - for now application is displaying only 20 products (array is sliced), therefore the pagination is not needed
-3. Added indicator displaying the number of products in the cart
+  - application is displaying only 20 products for now (array is sliced), therefore the pagination is not needed
+3. Added indicator displaying the number of products in the cart (better UX)
 
 ## My approach to building the product
-1. I knew I wanted to build the full experience (all pages) with the data from API. Therefore, I started with exploration of API. In the document there is a requirement to use `gift cards` as product, so I've found that `giftCardsRLD` field contains data. However, I wasn't able to find the price for the product, so price is not shown in the app.  
+1. I knew I wanted to build the full experience app (all pages) with the data from API. I started with the exploration of API. There was a requirement to use `gift cards` as products to display in the app. During my exploration phase I've found that `giftCardsRLD` key field contains data and can be used. **However, I wasn't able to find the price for the gift card product, so the price is not shown in the app.**
 
-2. After the exploration of data I did a research of current and successfully running e-commerce websites in order to get an inspiration for the app and has a better understanding of customer experience journey in the online world. 
+2. After the exploration of data I did a research of the current and successful running e-commerce businesses in order to get an inspiration for the app and get a better understanding of the online shopping process. With the thousand of online stores, Shopify and WooCommerce websites, the online shopping process is pretty standardized and it's better to follow the standard steps because users are used to it.  
 
-3. I drew several screens using pencil and paper to give my ideas more concrete form. Wireframes were born
+3. I drew several screens using pencil and paper to give my ideas more concrete form. Several wireframes were born
 
-4. Because I didn't have much time to move from wireframes into designing phase where I would design screens, I decided to create project and start coding. Luckily I have an experience with amazing CSS framework called TailwindCSS which allows me to rapidly build beautiful UIs
+4. Because I didn't have much time to move from wireframes into designing phase where I would design screens, I decided to create React project and start coding. Luckily, I have an experience with amazing CSS framework called TailwindCSS which allowed me to rapidly build beautiful UI.
 
-5. In the coding phase I have created the core functionality first, which was adding / removing products and updating quantity. I continued with 
+5. In the coding phase I have created the core functionality first, which was adding / removing products and updating quantity. I continued with building pages and moving repetitive parts of code into components.
 
+6. Once I was almost done with the project, I've added a simple circle indicating the number of products in the user's cart.
 
-### What is missing
+## Possible improvements
+1. **Cache:** Cache products after the first fetch of the API endpoint to prevent loading states. Possible solutions:
+  - `Redis`: database for caching
+  - `localStorage`: depending on the size of data we can save data in the client's browser. However, limit is 5MB for app.
 
-## How to access giftcards?
+2. **Pagination:** Implment pagination in order to display all products. We can implement 2 approaches to pagination:
+  - download all data and display only small portion of data to make better user experience
+  - download data on the fly when the user request other page of data
 
-`'data' --> 'giftCardsRLD' --> 'content'`
+3. **Next.js:** Use Next.js to create better and well optimized application for production.
+  - React is just a library and in order to build a production ready app you need to tweak react, add more scripts and configuration to make it production ready. NextJS provides all features baked inside to create production ready apps.
+
+4. **Accessibility:** We should keep in mind that web and app are used even by people with disabilities. We should check the app whether it can be read by screen readers or any other assistive technology. We should also check contrast of colors and whether the chosen colors are good for people with color disabilities
+
+5. **SEO:** React does not provide great search engine optimizations for Google and other search engines. Solutions:
+  - `react-helmet`: manages all changes to plain HTML tags and optimize them for SEO
+  - `Next.js`: we can use SSR or SSG to get better optimizations for search engines 
+
+6. **Tests and TDD:** When working within the team building an app, it's really important to practice TDD (Test0driven development). We should create tests and than write code. We should also create all types of tests such as `unit` test, `integration` tests and `end-to-end` tests to make sure the app is working properly and without bugs
+
+## Exploration of API (Gift cards)
+
+To access gift cards, use API endpoint: `https://api.chimoney.io/v0.2/info/assets` and follow JSON key values below:
+
+```text
+'data' --> 'giftCardsRLD' --> 'content'
+```
 
 ### Example of gift card object
 

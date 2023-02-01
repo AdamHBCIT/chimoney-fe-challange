@@ -1,6 +1,6 @@
 import type { CartProduct } from "@lib/store";
 import useStore from "@lib/store";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Header from "@components/layout/Header";
 import { Link } from "react-router-dom";
 import RemoveFromCartButton from "@components/button/RemoveFromCartButton";
